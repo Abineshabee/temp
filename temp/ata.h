@@ -137,7 +137,7 @@ void test_persistent_storage() {
     memset(buffer, 0, 512);
     
     // Write test string
-    strcpy((char*)buffer, "Hello I am Abinesh!");
+    strcpy((char*)buffer, "I am Abinesh!");
     
     /*
     // Debug Print Before Writing
@@ -154,9 +154,9 @@ void test_persistent_storage() {
     printf("\n");
     */
     
-    /*
+    
     // Write to Disk
-    if (ata_write_sector(100, buffer) != 0) {
+    if (ata_write_sector(1, buffer) != 0) {
         printf("Write failed!\n");
         return;
     }
@@ -165,11 +165,11 @@ void test_persistent_storage() {
     memset(buffer, 0, 512);
     
     // Read from Disk
-    if (ata_read_sector(100, buffer) != 0) {
+    if (ata_read_sector(1, buffer) != 0) {
         printf("Read failed!\n");
         return;
     }
-    */
+    
     
      /*
     // Debug Print After Reading
