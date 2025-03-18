@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Leave Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #2ecc71;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav {
+            background-color: #27ae60;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+        .nav a:hover {
+            background-color: #219653;
+            border-radius: 3px;
+        }
+        .main {
+            display: flex;
+            margin-top: 20px;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .leave-request {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 3px;
+            border-left: 5px solid #f39c12;
+        }
+        .leave-request-details {
+            margin-bottom: 15px;
+        }
+        .btn {
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        .btn-approve {
+            background-color: #2ecc71;
+            color: white;
+        }
+        .btn-reject {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .btn-view {
+            background-color: #3498db;
+            color: white;
+        }
+        .response-form {
+            margin-top: 10px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            display: none;
+        }
+        .response-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            height: 80px;
+        }
+        .stats {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            margin-right: 10px;
+            color: white;
+        }
+        .stat-box:last-child {
+            margin-right: 0;
+        }
+        .stat-box h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .stat-box p {
+            margin: 5px 0 0;
+        }
+        .pending-box {
+            background-color: #f39c12;
+        }
+        .approved-box {
+            background-color: #2ecc71;
+        }
+        .rejected-box {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Teacher Leave Portal</h1>
+    </div>
+    <div class="nav">
+        <div>
+            <a href="teacher_dashboard.html">Dashboard</a>
+            <a href="all_requests.html">All Requests</a>
+            <a href="reports.html">Reports</a>
+        </div>
+        <div>
+            <a href="profile.html">Profile</a>
+            <a href="logout.php">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="main">
+            <div class="sidebar">
+                <h2>Teacher Information</h2>
+                <p><strong>Name:</strong> <span id="teacher-name">Ms. Sarah Johnson</span></p>
+                <p><strong>ID:</strong> <span id="teacher-id">TCH001</span></p>
+                <p><strong>Department:</strong> <span id="teacher-dept">Science</span></p>
+                <p><strong>Classes:</strong> <span id="teacher-classes">10-A, 9-B, 8-C</span></p>
+            </div>
+            
+            <div class="content">
+                <h2>Leave Requests Dashboard</h2>
+                
+                <div class="stats">
+                    <div class="stat-box pending-box">
+                        <h3>12</h3>
+                        <p>Pending Requests</p>
+                    </div>
+                    <div class="stat-box approved-box">
+                        <h3>45</h3>
+                        <p>Approved Leaves</p>
+                    </div>
+                    <div class="stat-box rejected-box">
+                        <h3>8</h3>
+                        <p>Rejected Requests</p>
+                    </div>
+                </div>
+                
+                <h3>Pending Leave Requests</h3>
+                
+                <div class="leave-request">
+                    <div class="leave-request-details">
+                        <h4>Medical Leave - John Doe (ST12345)</h4>
+                        <p><strong>Class:</strong> 10-A</p>
+                        <p><strong>Period:</strong> 12 Mar, 2025 - 14 Mar, 2025</p>
+                        <p><strong>Reason:</strong> I am suffering from high fever and the doctor has advised bed rest for 3 days.</p>
+                        <p><strong>Submitted:</strong> 10 Mar, 2025</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-approve" onclick="showResponseForm('approve-form-1')">Approve</button>
+                        <button class="btn btn-reject" onclick="showResponseForm('reject-form-1')">Reject</button>
+                        <button class="btn btn-view">View Details</button>
+                    </div>
+                    <div id="approve-form-1" class="response-form">
+                        <textarea placeholder="Additional comments (optional)"></textarea>
+                        <button class="btn btn-approve" onclick="respondToRequest(1, 'approve')">Confirm Approval</button>
+                        <button class="btn" onclick="hideResponseForm('approve-form-1')">Cancel</button>
+                    </div>
+                    <div id="reject-form-1" class="response-form">
+                        <textarea placeholder="Reason for rejection (required)"></textarea>
+                        <button class="btn btn-reject" onclick="respondToRequest(1, 'reject')">Confirm Rejection</button>
+                        <button class="btn" onclick="hideResponseForm('reject-form-1')">Cancel</button>
+                    </div>
+                </div>
+                
+                <div class="leave-request">
+                    <div class="leave-request-details">
+                        <h4>Personal Leave - Jane Smith (ST12346)</h4>
+                        <p><strong>Class:</strong> 9-B</p>
+                        <p><strong>Period:</strong> 15 Mar, 2025 - 15 Mar, 2025</p>
+                        <p><strong>Reason:</strong> I need to attend a family function.</p>
+                        <p><strong>Submitted:</strong> 11 Mar, 2025</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-approve" onclick="showResponseForm('approve-form-2')">Approve</button>
+                        <button class="btn btn-reject" onclick="showResponseForm('reject-form-2')">Reject</button>
+                        <button class="btn btn-view">View Details</button>
+                    </div>
+                    <div id="approve-form-2" class="response-form">
+                        <textarea placeholder="Additional comments (optional)"></textarea>
+                        <button class="btn btn-approve" onclick="respondToRequest(2, 'approve')">Confirm Approval</button>
+                        <button class="btn" onclick="hideResponseForm('approve-form-2')">Cancel</button>
+                    </div>
+                    <div id="reject-form-2" class="response-form">
+                        <textarea placeholder="Reason for rejection (required)"></textarea>
+                        <button class="btn btn-reject" onclick="respondToRequest(2, 'reject')">Confirm Rejection</button>
+                        <button class="btn" onclick="hideResponseForm('reject-form-2')">Cancel</button>
+                    </div>
+                </div>
+                
+                <div class="leave-request">
+                    <div class="leave-request-details">
+                        <h4>Family Emergency - Michael Brown (ST12347)</h4>
+                        <p><strong>Class:</strong> 8-C</p>
+                        <p><strong>Period:</strong> 14 Mar, 2025 - 16 Mar, 2025</p>
+                        <p><strong>Reason:</strong> My grandmother is hospitalized and I need to visit her.</p>
+                        <p><strong>Submitted:</strong> 13 Mar, 2025</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-approve" onclick="showResponseForm('approve-form-3')">Approve</button>
+                        <button class="btn btn-reject" onclick="showResponseForm('reject-form-3')">Reject</button>
+                        <button class="btn btn-view">View Details</button>
+                    </div>
+                    <div id="approve-form-3" class="response-form">
+                        <textarea placeholder="Additional comments (optional)"></textarea>
+                        <button class="btn btn-approve" onclick="respondToRequest(3, 'approve')">Confirm Approval</button>
+                        <button class="btn" onclick="hideResponseForm('approve-form-3')">Cancel</button>
+                    </div>
+                    <div id="reject-form-3" class="response-form">
+                        <textarea placeholder="Reason for rejection (required)"></textarea>
+                        <button class="btn btn-reject" onclick="respondToRequest(3, 'reject')">Confirm Rejection</button>
+                        <button class="btn" onclick="hideResponseForm('reject-form-3')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show response form
+        function showResponseForm(formId) {
+            // Hide all response forms first
+            document.querySelectorAll('.response-form').forEach(form => {
+                form.style.display = 'none';
+            });
+            
+            // Show the selected form
+            document.getElementById(formId).style.display = 'block';
+        }
+        
+        // Hide response form
+        function hideResponseForm(formId) {
+            document.getElementById(formId).style.display = 'none';
+        }
+        
+        // Respond to request
+        function respondToRequest(requestId, action) {
+            const formId = action + '-form-' + requestId;
+            const comments = document.querySelector('#' + formId + ' textarea').value;
+            
+            // Validate
+            if (action === 'reject' && !comments.trim()) {
+                alert('Please provide a reason for rejection');
+                return;
+            }
+            
+            // Send to server
+            const formData = new FormData();
+            formData.append('requestId', requestId);
+            formData.append('action', action);
+            formData.append('comments', comments);
+            
+            fetch('respond_leave.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Leave request ' + (action === 'approve' ? 'approved' : 'rejected') + ' successfully');
+                    // Refresh page to show updated status
+                    location.reload();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while processing your request');
+            });
+        }
+        
+        // Load teacher information
+        function loadTeacherInfo() {
+            fetch('get_teacher_info.php')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('teacher-name').textContent = data.name;
+                document.getElementById('teacher-id').textContent = data.id;
+                document.getElementById('teacher-dept').textContent = data.department;
+                document.getElementById('teacher-classes').textContent = data.classes.join(', ');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+        
+        // Call the function to load teacher info when page loads
+        // loadTeacherInfo();
+    </script>
+</body>
+</html>
