@@ -1,0 +1,16 @@
+leave-portal/
+├── node_modules/               # Installed dependencies (created by npm)
+├── public/                     # Static files served by Express
+│   ├── index.html              # Login page HTML
+│   ├── styles.css              # CSS styles
+|   ├── std_styles.css          # Students CSS styles
+│   ├── client.js               # Client-side JavaScript
+|   ├── std_script.js           # Students script
+│   ├── student-dashboard.html  # Student dashboard page
+│   └── teacher-dashboard.html  # Teacher dashboard page
+├── schema.sql                  # Database schema and sample data
+├── server.js                   # Main Express server file
+├── setup-db.js                 # Database setup script
+├── .env                        # Environment variables (keep private)
+├── package.json                # Project metadata and dependencies
+└── package-lock.json           # Dependency lock file (created by npm)

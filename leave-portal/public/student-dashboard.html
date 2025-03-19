@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Leave Portal</title>
+    <link rel="stylesheet" href="std_styles.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Student Leave Portal</h1>
+    </div>
+    <div class="nav">
+        <div>
+            <a href="index.html">Home</a>
+            <a href="apply.html">Apply Leave</a>
+            <a href="history.html">Leave History</a>
+        </div>
+        <div>
+            <a href="profile.html">Profile</a>
+            <a href="#" id="logout-btn">Logout</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="main">
+            <div class="sidebar">
+                <h2>Student Information</h2>
+                <p><strong>Name:</strong> <span id="student-name">John Doe</span></p>
+                <p><strong>ID:</strong> <span id="student-id">ST12345</span></p>
+                <p><strong>Class:</strong> <span id="student-class">Class 10-A</span></p>
+                <p><strong>Remaining Leaves:</strong> <span id="remaining-leaves">5</span></p>
+            </div>
+            
+            <div class="content">
+                <h2>Apply for Leave</h2>
+                <form id="leave-form">
+                    <div class="form-group">
+                        <label for="leave-type">Leave Type</label>
+                        <select id="leave-type" class="form-control" required>
+                            <option value="">Select Leave Type</option>
+                            <option value="medical">Medical Leave</option>
+                            <option value="personal">Personal Leave</option>
+                            <option value="family">Family Emergency</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="from-date">From Date</label>
+                        <input type="date" id="from-date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="to-date">To Date</label>
+                        <input type="date" id="to-date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reason">Reason for Leave</label>
+                        <textarea id="reason" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="teacher">Teacher</label>
+                        <select id="teacher" class="form-control" required>
+                            <option value="">Select Teacher</option>
+                            <option value="1">Ms. Sarah Johnson</option>
+                            <option value="2">Mr. Robert Smith</option>
+                            <option value="3">Mrs. Emily Davis</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn">Submit Leave Request</button>
+                </form>
+                
+                <div class="leave-list">
+                    <h2>Recent Leave Requests</h2>
+                    <div id="leave-items-container">
+                        <!-- Leave items will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="std_script.js"></script>
+</body>
+</html>
