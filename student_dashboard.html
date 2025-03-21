@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Leave Portal - Dashboard</title>
+    <link rel="stylesheet" href="student_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="/api/placeholder/80/80" alt="School Logo">
+                <h2>Student Portal</h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active">
+                    <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-calendar-plus"></i> New Leave Request</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-history"></i> Leave History</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-user"></i> Profile</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                </li>
+                <li class="logout">
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="user-info">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <div class="user">
+                        <img src="/api/placeholder/40/40" alt="Student Photo" id="profilePicture">
+                        <div class="user-details">
+                            <h4 id="studentName">Loading...</h4>
+                            <p id="studentID">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1>Welcome back, <span id="welcomeName">Student</span>!</h1>
+                <p>Here's an overview of your leave status and recent requests.</p>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-grid">
+                <!-- Leave Balance Section -->
+                <div class="card leave-balance">
+                    <h2>Leave Balance</h2>
+                    <div class="progress-container">
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Medical Leave</span>
+                                <span id="medicalLeaveCount">0/10</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress medical" id="medicalProgress"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Personal Leave</span>
+                                <span id="personalLeaveCount">0/5</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress personal" id="personalProgress"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Family Leave</span>
+                                <span id="familyLeaveCount">0/3</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress family" id="familyProgress"></div>
+                            </div>
+                        </div>
+
+                        <div class="progress-item">
+                            <div class="progress-label">
+                                <span>Phone Leave</span>
+                                <span id="phoneLeaveCount">0/2</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress phone" id="phoneProgress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Requests Section -->
+                <div class="card current-requests">
+                    <h2>Current Leave Requests</h2>
+                    <div class="request-list" id="currentRequests">
+                        <!-- This will be populated by JavaScript -->
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading your requests...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Section -->
+                <div class="card recent-activity">
+                    <h2>Recent Activity</h2>
+                    <div class="activity-list" id="recentActivity">
+                        <!-- This will be populated by JavaScript -->
+                        <div class="loading-spinner">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Loading activity...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Profile Summary -->
+                <div class="card profile-summary">
+                    <h2>Profile Summary</h2>
+                    <div class="profile-info">
+                        <img src="/api/placeholder/100/100" alt="Student Photo" id="profileSummaryImage">
+                        <div class="profile-details">
+                            <h3 id="profileName">Loading...</h3>
+                            <p><i class="fas fa-id-card"></i> <span id="profileID">Loading...</span></p>
+                            <p><i class="fas fa-graduation-cap"></i> <span id="profileClass">Loading...</span></p>
+                            <p><i class="fas fa-envelope"></i> <span id="profileEmail">Loading...</span></p>
+                            <p><i class="fas fa-phone"></i> <span id="profilePhone">Loading...</span></p>
+                        </div>
+                    </div>
+                    <button class="btn-primary">View Full Profile</button>
+                </div>
+            </div>
+
+            <!-- Recent Leave History -->
+            <div class="recent-history">
+                <div class="section-header">
+                    <h2>Leave History</h2>
+                    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="history-container">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Leave Type</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Duration</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaveHistoryTable">
+                            <!-- This will be populated by JavaScript -->
+                            <tr>
+                                <td colspan="8" class="loading-cell">
+                                    <div class="loading-spinner">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                        <p>Loading history...</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Action Button -->
+    <div class="quick-action">
+        <button id="newLeaveBtn" class="floating-btn">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- New Leave Request Modal -->
+    <div id="leaveModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>New Leave Request</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="leaveRequestForm">
+                    <div class="form-group">
+                        <label for="leaveType">Leave Type</label>
+                        <select id="leaveType" required>
+                            <option value="">Select Leave Type</option>
+                            <option value="medical">Medical Leave</option>
+                            <option value="personal">Personal Leave</option>
+                            <option value="family">Family Leave</option>
+                            <option value="phone">Phone Leave</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fromDate">From Date</label>
+                        <input type="date" id="fromDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="toDate">To Date</label>
+                        <input type="date" id="toDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason</label>
+                        <textarea id="reason" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group attachment">
+                        <label for="attachment">Attachment (if any)</label>
+                        <input type="file" id="attachment">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelLeaveBtn">Cancel</button>
+                        <button type="submit" class="btn-primary">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base URL for API calls
+        const API_BASE_URL = '/api';
+        
+        // DOM Elements
+        const studentNameElements = document.querySelectorAll('#studentName, #welcomeName, #profileName');
+        const studentIDElements = document.querySelectorAll('#studentID, #profileID');
+        const profilePictures = document.querySelectorAll('#profilePicture, #profileSummaryImage');
+        const currentRequestsContainer = document.getElementById('currentRequests');
+        const recentActivityContainer = document.getElementById('recentActivity');
+        const leaveHistoryTable = document.getElementById('leaveHistoryTable');
+        const newLeaveBtn = document.getElementById('newLeaveBtn');
+        const leaveModal = document.getElementById('leaveModal');
+        const closeModal = document.querySelector('.close-modal');
+        const cancelLeaveBtn = document.getElementById('cancelLeaveBtn');
+        const leaveRequestForm = document.getElementById('leaveRequestForm');
+
+        // Profile information
+        const profileClass = document.getElementById('profileClass');
+        const profileEmail = document.getElementById('profileEmail');
+        const profilePhone = document.getElementById('profilePhone');
+
+        // Progress bars
+        const medicalProgress = document.getElementById('medicalProgress');
+        const personalProgress = document.getElementById('personalProgress');
+        const familyProgress = document.getElementById('familyProgress');
+        const phoneProgress = document.getElementById('phoneProgress');
+
+        // Leave count displays
+        const medicalLeaveCount = document.getElementById('medicalLeaveCount');
+        const personalLeaveCount = document.getElementById('personalLeaveCount');
+        const familyLeaveCount = document.getElementById('familyLeaveCount');
+        const phoneLeaveCount = document.getElementById('phoneLeaveCount');
+
+        // Mock student data (this would come from the backend)
+        let studentData = {
+            id: 'STU12345',
+            name: 'John Smith',
+            class: 'Computer Science - Year 3',
+            email: 'john.smith@university.edu',
+            phone: '+1 (555) 123-4567',
+            leaves: {
+                medical: { used: 2, total: 10 },
+                personal: { used: 3, total: 5 },
+                family: { used: 1, total: 3 },
+                phone: { used: 1, total: 2 }
+            }
+        };
+
+        // Mock leave requests (this would come from the backend)
+        let leaveRequests = [
+            {
+                id: 'LR001',
+                type: 'medical',
+                fromDate: '2025-03-10',
+                toDate: '2025-03-12',
+                duration: '3 days',
+                reason: 'Flu and fever',
+                status: 'approved',
+                timestamp: '2025-03-08T10:30:00'
+            },
+            {
+                id: 'LR002',
+                type: 'personal',
+                fromDate: '2025-03-15',
+                toDate: '2025-03-15',
+                duration: '1 day',
+                reason: 'Personal appointment',
+                status: 'rejected',
+                timestamp: '2025-03-12T14:45:00',
+                comment: 'Clash with important class test'
+            },
+            {
+                id: 'LR003',
+                type: 'phone',
+                fromDate: '2025-03-20',
+                toDate: '2025-03-20',
+                duration: '1 hour',
+                reason: 'Emergency call from home',
+                status: 'pending',
+                timestamp: '2025-03-19T09:15:00'
+            },
+            {
+                id: 'LR004',
+                type: 'family',
+                fromDate: '2025-03-25',
+                toDate: '2025-03-26',
+                duration: '2 days',
+                reason: 'Sister\'s wedding',
+                status: 'pending',
+                timestamp: '2025-03-18T16:20:00'
+            }
+        ];
+
+        // Mock recent activity (this would come from the backend)
+        let recentActivity = [
+            {
+                type: 'request',
+                action: 'submitted',
+                leaveType: 'family',
+                date: '2025-03-18T16:20:00',
+                details: 'Submitted leave request for 2 days'
+            },
+            {
+                type: 'status',
+                action: 'rejected',
+                leaveType: 'personal',
+                date: '2025-03-13T10:10:00',
+                details: 'Your personal leave request was rejected'
+            },
+            {
+                type: 'comment',
+                action: 'received',
+                leaveType: 'personal',
+                date: '2025-03-13T10:10:00',
+                details: 'Teacher commented: "Clash with important class test"'
+            },
+            {
+                type: 'status',
+                action: 'approved',
+                leaveType: 'medical',
+                date: '2025-03-09T11:45:00',
+                details: 'Your medical leave request was approved'
+            }
+        ];
+
+        // Load student data
+        function loadStudentData() {
+            // In a real application, this would be an API call
+            // For now, we're using the mock data
+            
+            // Update student name and ID elements
+            studentNameElements.forEach(element => {
+                if (element) element.textContent = studentData.name;
+            });
+            
+            studentIDElements.forEach(element => {
+                if (element) element.textContent = studentData.id;
+            });
+
+            // Update profile details
+            if (profileClass) profileClass.textContent = studentData.class;
+            if (profileEmail) profileEmail.textContent = studentData.email;
+            if (profilePhone) profilePhone.textContent = studentData.phone;
+
+            // Update leave balance progress bars
+            updateLeaveProgress('medical', medicalProgress, medicalLeaveCount, studentData.leaves.medical);
+            updateLeaveProgress('personal', personalProgress, personalLeaveCount, studentData.leaves.personal);
+            updateLeaveProgress('family', familyProgress, familyLeaveCount, studentData.leaves.family);
+            updateLeaveProgress('phone', phoneProgress, phoneLeaveCount, studentData.leaves.phone);
+        }
+
+        // Update leave progress bars
+        function updateLeaveProgress(type, progressBar, countElement, leaveData) {
+            if (!progressBar || !countElement) return;
+            
+            const { used, total } = leaveData;
+            const percentage = (used / total) * 100;
+            
+            progressBar.style.width = `${percentage}%`;
+            countElement.textContent = `${used}/${total}`;
+            
+            // Color coding based on remaining leaves
+            if (percentage >= 80) {
+                progressBar.classList.add('critical');
+            } else if (percentage >= 50) {
+                progressBar.classList.add('warning');
+            } else {
+                progressBar.classList.add('good');
+            }
+        }
+
+        // Load current leave requests
+        function loadCurrentRequests() {
+            // Filter for pending requests
+            const pendingRequests = leaveRequests.filter(req => req.status === 'pending');
+            
+            if (pendingRequests.length === 0) {
+                currentRequestsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle"></i>
+                        <p>No pending leave requests</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            currentRequestsContainer.innerHTML = '';
+            
+            pendingRequests.forEach(request => {
+                const requestElement = document.createElement('div');
+                requestElement.className = 'request-item';
+                requestElement.innerHTML = `
+                    <div class="request-icon ${request.type}">
+                        <i class="${getLeaveTypeIcon(request.type)}"></i>
+                    </div>
+                    <div class="request-details">
+                        <h4>${capitalizeFirstLetter(request.type)} Leave</h4>
+                        <p>${formatDate(request.fromDate)} to ${formatDate(request.toDate)}</p>
+                        <p class="reason">${request.reason}</p>
+                        <span class="status ${request.status}">${capitalizeFirstLetter(request.status)}</span>
+                    </div>
+                `;
+                currentRequestsContainer.appendChild(requestElement);
+            });
+        }
+
+        // Load recent activity
+        function loadRecentActivity() {
+            if (recentActivity.length === 0) {
+                recentActivityContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-history"></i>
+                        <p>No recent activity</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            recentActivityContainer.innerHTML = '';
+            
+            recentActivity.forEach(activity => {
+                const activityElement = document.createElement('div');
+                activityElement.className = 'activity-item';
+                
+                // Get appropriate icon based on activity type
+                let iconClass = 'fa-info-circle';
+                let actionClass = '';
+                
+                if (activity.type === 'request' && activity.action === 'submitted') {
+                    iconClass = 'fa-paper-plane';
+                    actionClass = 'submitted';
+                } else if (activity.type === 'status' && activity.action === 'approved') {
+                    iconClass = 'fa-check-circle';
+                    actionClass = 'approved';
+                } else if (activity.type === 'status' && activity.action === 'rejected') {
+                    iconClass = 'fa-times-circle';
+                    actionClass = 'rejected';
+                } else if (activity.type === 'comment') {
+                    iconClass = 'fa-comment';
+                    actionClass = 'comment';
+                }
+                
+                activityElement.innerHTML = `
+                    <div class="activity-icon ${actionClass}">
+                        <i class="fas ${iconClass}"></i>
+                    </div>
+                    <div class="activity-details">
+                        <p>${activity.details}</p>
+                        <span class="activity-time">${formatTimeAgo(new Date(activity.date))}</span>
+                    </div>
+                `;
+                recentActivityContainer.appendChild(activityElement);
+            });
+        }
+
+        // Load leave history
+        function loadLeaveHistory() {
+            if (leaveRequests.length === 0) {
+                leaveHistoryTable.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="empty-cell">
+                            <div class="empty-state">
+                                <i class="fas fa-history"></i>
+                                <p>No leave requests found</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            leaveHistoryTable.innerHTML = '';
+            
+            // Sort by date (newest first)
+            const sortedRequests = [...leaveRequests].sort((a, b) => 
+                new Date(b.timestamp) - new Date(a.timestamp)
+            );
+            
+            sortedRequests.forEach(request => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.id}</td>
+                    <td>
+                        <span class="leave-type ${request.type}">
+                            <i class="${getLeaveTypeIcon(request.type)}"></i>
+                            ${capitalizeFirstLetter(request.type)}
+                        </span>
+                    </td>
+                    <td>${formatDate(request.fromDate)}</td>
+                    <td>${formatDate(request.toDate)}</td>
+                    <td>${request.duration}</td>
+                    <td class="reason-cell">
+                        <span class="truncate-text" title="${request.reason}">${request.reason}</span>
+                    </td>
+                    <td>
+                        <span class="status-badge ${request.status}">
+                            ${capitalizeFirstLetter(request.status)}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn-icon" title="View Details">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        ${request.status === 'pending' ? `
+                            <button class="btn-icon" title="Cancel Request">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        ` : ''}
+                    </td>
+                `;
+                leaveHistoryTable.appendChild(row);
+            });
+        }
+
+        // Helper function to get icon class for leave type
+        function getLeaveTypeIcon(type) {
+            switch (type) {
+                case 'medical':
+                    return 'fas fa-medkit';
+                case 'personal':
+                    return 'fas fa-user';
+                case 'family':
+                    return 'fas fa-home';
+                case 'phone':
+                    return 'fas fa-phone';
+                default:
+                    return 'fas fa-calendar';
+            }
+        }
+
+        // Helper function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Helper function to capitalize first letter
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Helper function to format time ago
+        function formatTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) {
+                return 'just now';
+            }
+            
+            const diffInMinutes = Math.floor(diffInSeconds / 60);
+            if (diffInMinutes < 60) {
+                return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+            }
+            
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            if (diffInHours < 24) {
+                return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+            }
+            
+            const diffInDays = Math.floor(diffInHours / 24);
+            if (diffInDays < 7) {
+                return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+            }
+            
+            return formatDate(date);
+        }
+
+        // Modal event handlers
+        newLeaveBtn.addEventListener('click', () => {
+            leaveModal.style.display = 'block';
+        });
+
+        closeModal.addEventListener('click', () => {
+            leaveModal.style.display = 'none';
+        });
+
+        cancelLeaveBtn.addEventListener('click', () => {
+            leaveModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === leaveModal) {
+                leaveModal.style.display = 'none';
+            }
+        });
+
+        // Form submission
+        leaveRequestForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real app, this would send the data to the server
+            // For demo purposes, we'll just close the modal
+            leaveModal.style.display = 'none';
+            
+            // Show a success message (in a real app)
+            alert('Leave request submitted successfully!');
+        });
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStudentData();
+            loadCurrentRequests();
+            loadRecentActivity();
+            loadLeaveHistory();
+        });
+    </script>
+</body>
+</html>

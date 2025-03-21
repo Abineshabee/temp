@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Leave Portal | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="/api/placeholder/80/80" alt="School Logo">
+                <h2>EduConnect</h2>
+            </div>
+            <div class="profile-brief">
+                <img src="/api/placeholder/60/60" alt="Student Profile" class="profile-pic">
+                <p class="student-name" id="studentName">Loading...</p>
+                <p class="student-id" id="studentId">ID: Loading...</p>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-plus"></i> New Leave Request</a></li>
+                    <li><a href="#"><i class="fas fa-history"></i> Leave History</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="logout">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <div class="header-right">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="messages">
+                        <i class="fas fa-envelope"></i>
+                        <span class="badge">5</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="/api/placeholder/40/40" alt="Student Profile">
+                        <span>Hi, <span id="headerStudentName">Student</span></span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="welcome-section">
+                <div class="welcome-text">
+                    <h1>Welcome back, <span id="welcomeStudentName">Student</span>!</h1>
+                    <p>Here's an overview of your leave status and requests.</p>
+                </div>
+                <div class="date-time">
+                    <p id="currentDate">Loading date...</p>
+                </div>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon medical">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Medical Leave</h3>
+                        <p><span id="medicalLeaveUsed">0</span>/<span id="medicalLeaveTotal">10</span> days used</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon personal">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Personal Leave</h3>
+                        <p><span id="personalLeaveUsed">0</span>/<span id="personalLeaveTotal">5</span> days used</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon family">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Family Leave</h3>
+                        <p><span id="familyLeaveUsed">0</span>/<span id="familyLeaveTotal">7</span> days used</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon phone">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Phone Leave</h3>
+                        <p><span id="phoneLeaveUsed">0</span>/<span id="phoneLeaveTotal">3</span> days used</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <h2>Leave Limits</h2>
+                <div class="progress-container">
+                    <div class="progress-item">
+                        <div class="progress-info">
+                            <span>Medical Leave</span>
+                            <span id="medicalLeavePercent">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar medical-progress" id="medicalLeaveProgress"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-info">
+                            <span>Personal Leave</span>
+                            <span id="personalLeavePercent">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar personal-progress" id="personalLeaveProgress"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-info">
+                            <span>Family Leave</span>
+                            <span id="familyLeavePercent">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar family-progress" id="familyLeaveProgress"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-info">
+                            <span>Phone Leave</span>
+                            <span id="phoneLeavePercent">0%</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar phone-progress" id="phoneLeaveProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-requests">
+                <div class="section-header">
+                    <h2>Recent Leave Requests</h2>
+                    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="requests-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Type</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Days</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentRequestsTableBody">
+                            <!-- Data will be loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="quick-request">
+                <div class="section-header">
+                    <h2>Quick Leave Request</h2>
+                </div>
+                <div class="quick-request-form">
+                    <form id="quickLeaveForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="leaveType">Leave Type</label>
+                                <select id="leaveType" required>
+                                    <option value="">Select Leave Type</option>
+                                    <option value="medical">Medical Leave</option>
+                                    <option value="personal">Personal Leave</option>
+                                    <option value="family">Family Leave</option>
+                                    <option value="phone">Phone Leave</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="startDate">Start Date</label>
+                                <input type="date" id="startDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">End Date</label>
+                                <input type="date" id="endDate" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label for="reason">Reason</label>
+                                <textarea id="reason" rows="3" placeholder="Please provide detailed reason for your leave request..." required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Request</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-container" id="toastContainer">
+        <!-- Toasts will be added dynamically -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
