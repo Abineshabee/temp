@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Leave Portal - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="./vcet.png" alt="VCET">
+                <h2>EduLeave</h2>
+            </div>
+            <hr class = "hr-block" >
+            <div class="sidebar-user">
+                <div class="balance-icon user">
+                     <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-info">
+                    <h3 id="student-name">Loading...</h3>
+                    <p id="student-id">ID: Loading...</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-calendar-alt"></i> Leave Calendar</a></li>
+                <li><a href="#"><i class="fas fa-file-alt"></i> Apply Leave</a></li>
+                <li><a href="#"><i class="fas fa-history"></i> Leave History</a></li>
+                <li><a href="#"><i class="fas fa-user-cog"></i> Profile</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search" style="border-radius: 40px; border-color: rgba( 0,0,0,0 ) ;  " >
+                </div>
+                <div class="top-nav">
+                    <a href="#" class="notification-icon" id="notification-trigger">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">2</span>
+                    </a>
+                    <a href="#" class="message-icon" id="messages-trigger">
+                        <i class="fas fa-envelope"></i>
+                        <span class="badge">1</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dashboard-header">
+                <h1>Dashboard</h1>
+                <p class="current-date" id="current-date">Loading date...</p>
+            </div>
+
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="approved-leaves">0</h3>
+                        <p>Approved Leaves</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pending-leaves">0</h3>
+                        <p>Pending Requests</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon rejected">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="rejected-leaves">0</h3>
+                        <p>Rejected Leaves</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon total">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="total-leaves">0</h3>
+                        <p>Total Allowed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="leave-balance-section">
+                <div class="section-header">
+                    <h2>Leave Balance</h2>
+                    <div class="section-actions">
+                        <button class="btn-refresh"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    </div>
+                </div>
+                <div class="leave-balance-cards">
+                    <div class="leave-balance-card">
+                        <div class="balance-header">
+                            <div class="balance-icon medical">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="balance-title">
+                                <h3>Medical Leave</h3>
+                                <p id="medical-leave-status">7 of 10 remaining</p>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar medical" id="medical-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="leave-balance-card">
+                        <div class="balance-header">
+                            <div class="balance-icon personal">
+                                <i class="fas fa-user-alt"></i>
+                            </div>
+                            <div class="balance-title">
+                                <h3>Personal Leave</h3>
+                                <p id="personal-leave-status">4 of 6 remaining</p>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar personal" id="personal-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="leave-balance-card">
+                        <div class="balance-header">
+                            <div class="balance-icon family">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="balance-title">
+                                <h3>Family Leave</h3>
+                                <p id="family-leave-status">2 of 4 remaining</p>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar family" id="family-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="leave-balance-card">
+                        <div class="balance-header">
+                            <div class="balance-icon phone">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="balance-title">
+                                <h3>Phone Leave</h3>
+                                <p id="phone-leave-status">1 of 3 remaining</p>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar phone" id="phone-progress" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-requests-section">
+                <div class="section-header">
+                    <h2>Recent Leave Requests</h2>
+                    <div class="section-actions">
+                        <div class="filter-dropdown">
+                            <select id="status-filter">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                        <button class="btn-view-all">View All <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="requests-table-container">
+                    <table class="requests-table">
+                        <thead>
+                            <tr>
+                                <th>Request ID</th>
+                                <th>Type</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Duration</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requests-table-body">
+                            <!-- Table content will be loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="quick-actions-section">
+                <div class="section-header">
+                    <h2>Quick Actions</h2>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-card" id="leave-form">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>New Leave Request</span>
+                    </button>
+                    <button class="action-card" id = "download-report">
+                        <i class="fas fa-file-download"></i>
+                        <span>Download Reports</span>
+                    </button>
+                    <button class="action-card" id="contact-teacher">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact Teacher</span>
+                    </button>
+                    <button class="action-card" id="help-support">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help & Support</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Apply Leave Modal (Hidden by default) -->
+    <div class="modal" id="apply-leave-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Apply for Leave</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="leave-form">
+                    <div class="form-group">
+                        <label for="leave-type">Leave Type</label>
+                        <select id="leave-type" required>
+                            <option value="" selected disabled>Select Leave Type</option>
+                            <option value="medical">Medical Leave</option>
+                            <option value="personal">Personal Leave</option>
+                            <option value="family">Family Leave</option>
+                            <option value="phone">Phone Leave</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="start-date">From Date</label>
+                            <input type="date" id="start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="end-date">To Date</label>
+                            <input type="date" id="end-date" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="leave-reason">Reason for Leave</label>
+                        <textarea id="leave-reason" rows="4" required placeholder="Please provide detailed reason for your leave request..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="attachment">Attachment (if any)</label>
+                        <input type="file" id="attachment">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel">Cancel</button>
+                        <button type="submit" class="btn-submit">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+<!-- Download Report Modal -->
+<div class="modal" id="download-report-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Download Report</h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="report-options">
+                <div class="form-group">
+                    <label for="report-type">Report Type</label>
+                    <select id="report-type" required>
+                        <option value="" selected disabled>Select Report Type</option>
+                        <option value="academic">Academic Performance</option>
+                        <option value="attendance">Attendance Record</option>
+                        <option value="behavior">Behavior Assessment</option>
+                        <option value="comprehensive">Comprehensive Report</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="report-period">Time Period</label>
+                    <select id="report-period" required>
+                        <option value="" selected disabled>Select Time Period</option>
+                        <option value="current">Current Month</option>
+                        <option value="last">Last Month</option>
+                        <option value="quarter">Current Quarter</option>
+                        <option value="semester">Current Semester</option>
+                        <option value="year">Current Academic Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="report-format">Format</label>
+                    <select id="report-format" required>
+                        <option value="pdf">PDF Document</option>
+                        <option value="excel">Excel Spreadsheet</option>
+                        <option value="word">Word Document</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-cancel">Cancel</button>
+                <button type="button" class="btn-submit" id="generate-report">Generate Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Contact Teacher Modal -->
+<div class="modal" id="contact-teacher-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Contact Teacher</h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="teacher-select">Select Teacher</label>
+                    <select id="teacher-select" required>
+                        <option value="" selected disabled>Choose a Teacher</option>
+                        <option value="math">Abinesh N</option>
+                        <option value="science">Abisha N</option>
+                        <option value="english">Pranjan J</option>
+                        <option value="history">Kishore P</option>
+                        <option value="pe">Bhalax</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message-subject">Subject</label>
+                    <input type="text" id="message-subject" required placeholder="Brief subject of your message">
+                </div>
+                <div class="form-group">
+                    <label for="message-body">Message</label>
+                    <textarea id="message-body" rows="4" required placeholder="Type your message here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Communication Preference</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reply-email" checked>
+                            <span class="checkmark"></span>
+                            Receive reply via email
+                        </label>
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reply-app">
+                            <span class="checkmark"></span>
+                            Receive reply in-app
+                        </label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel">Cancel</button>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Help & Support Modal -->
+<div class="modal" id="help-support-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Help & Support</h2>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="support-tabs">
+                <button class="tab-btn active" data-tab="faq">FAQs</button>
+                <button class="tab-btn" data-tab="contact">Contact Support</button>
+                <button class="tab-btn" data-tab="guides">User Guides</button>
+            </div>
+            
+            <div class="tab-content" id="faq-tab">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">How do I apply for leave?</div>
+                        <div class="accordion-content">
+                            <p>To apply for leave, click on the "Apply for Leave" button on the dashboard. Fill out the required details including leave type, date range, and reason. Submit your request and wait for approval.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">How can I download my reports?</div>
+                        <div class="accordion-content">
+                            <p>Click on the "Download Report" option in the Quick Actions section. Select the type of report, time period, and format, then click "Generate Report" to download.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <div class="accordion-header">How do I update my personal information?</div>
+                        <div class="accordion-content">
+                            <p>Go to your Profile section by clicking on your profile picture in the top right corner. Select "Edit Profile" and update the necessary information. Click "Save Changes" when done.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-content hidden" id="contact-tab">
+                <form id="support-form">
+                    <div class="form-group">
+                        <label for="issue-category">Issue Category</label>
+                        <select id="issue-category" required>
+                            <option value="" selected disabled>Select Category</option>
+                            <option value="account">Account Issues</option>
+                            <option value="technical">Technical Problems</option>
+                            <option value="feedback">Feedback & Suggestions</option>
+                            <option value="other">Other Queries</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="issue-priority">Priority</label>
+                        <select id="issue-priority" required>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="issue-description">Describe Your Issue</label>
+                        <textarea id="issue-description" rows="4" required placeholder="Please provide details about your issue..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="support-attachment">Attachments (Screenshots, etc.)</label>
+                        <input type="file" id="support-attachment" multiple>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel">Cancel</button>
+                        <button type="submit" class="btn-submit">Submit Ticket</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="tab-content hidden" id="guides-tab">
+                <div class="guides-list">
+                    <div class="guide-item">
+                        <div class="guide-icon"><i class="fas fa-book"></i></div>
+                        <div class="guide-info">
+                            <h3>Getting Started Guide</h3>
+                            <p>Learn the basics of navigating the dashboard and essential features.</p>
+                            <a href="#" class="guide-link">View Guide</a>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <div class="guide-icon"><i class="fas fa-video"></i></div>
+                        <div class="guide-info">
+                            <h3>Video Tutorials</h3>
+                            <p>Step-by-step video instructions for using the platform.</p>
+                            <a href="#" class="guide-link">Watch Videos</a>
+                        </div>
+                    </div>
+                    <div class="guide-item">
+                        <div class="guide-icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="guide-info">
+                            <h3>Feature Documentation</h3>
+                            <p>Detailed documentation on all available features and functionalities.</p>
+                            <a href="#" class="guide-link">Browse Docs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Leave Notifications Modal (Hidden by default) -->
+<div class="modal" id="leave-notifications-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Leave Notifications</h2>
+            <button class="close-modal" id="close-notifications">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="notification-item">
+                <div class="notification-header">
+                    <span class="notification-date">22 Mar 2025</span>
+                    <span class="notification-status approved">Approved</span>
+                </div>
+                <div class="notification-content">
+                    <p>Your leave request for <strong>Medical Leave</strong> from <strong>25 Mar 2025</strong> to <strong>27 Mar 2025</strong> has been approved.</p>
+                </div>
+                <div class="notification-actions">
+                    <button class="btn-view-details" data-leave-id="123">View Details</button>
+                    <button class="btn-acknowledge">Acknowledge</button>
+                </div>
+            </div>
+            <!-- This is a template for new notifications that will be dynamically added -->
+            <div id="notifications-container">
+                <!-- New notifications will be appended here by JavaScript -->
+            </div>
+            <div class="no-notifications" style="display: none;">
+                <p>You have no new leave notifications.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Teacher Messages Modal (Hidden by default) -->
+<div class="modal" id="teacher-messages-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Messages from Teachers</h2>
+            <button class="close-modal" id="close-messages">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="messages-list">
+                <!-- This is a template for messages that will be dynamically added -->
+                <div id="messages-container">
+                    <!-- Example message for illustration -->
+                    <div class="message-item">
+                        <div class="message-header">
+                            <div class="sender-info">
+                                <span class="teacher-name">Ms. Johnson</span>
+                                <span class="message-date">22 Mar 2025</span>
+                            </div>
+                            <div class="leave-info">
+                                <span class="leave-type">Medical Leave</span>
+                                <span class="leave-dates">25 Mar - 27 Mar 2025</span>
+                            </div>
+                        </div>
+                        <div class="message-content">
+                            <p>Your leave has been approved. Please ensure you catch up with the missed lessons upon your return. I have shared the study materials with you via email.</p>
+                        </div>
+                        <div class="message-attachments">
+                            <a href="#" class="attachment">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>Study_Materials.pdf</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- New messages will be appended here by JavaScript -->
+                </div>
+                <div class="no-messages" style="display: none;">
+                    <p>You have no messages from teachers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
