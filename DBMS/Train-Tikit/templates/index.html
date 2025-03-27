@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+        <h2 class= "mb-3"><strong>Your Bookings</strong></h2>
+        {% if tickets %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col"><pre>Ticket Id</pre></th>
+                <th class="text-center" scope="col"><pre>Train Number</pre></th>
+                <th class="text-center" scope="col"><pre>From</pre></th>
+                <th class="text-center" scope="col"><pre>To</pre></th>
+                <th class="text-center" scope="col"><pre>Date of Journey</pre></th>
+                <th class="text-center" scope="col"><pre>Fare</pre></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ ticket["id"] }}</td>
+                        <td>{{ ticket["train_no"] }}</td>
+                        <td><pre>{{ ticket["board"] }}</pre></td>
+                        <td><pre>{{ ticket["deboard"] }}</pre></td>
+                        <td>{{ ticket["journey_date"] }}</td>
+                        <td>&#x20b9;{{ ticket["fare"] }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        {% else %}
+        <h3>You do not have any ticket at booked status right now.</h3>
+        {% endif %}
+{% endblock %}
+

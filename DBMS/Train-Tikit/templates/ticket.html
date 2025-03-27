@@ -1,0 +1,162 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Ticket
+{% endblock %}
+
+{% block main %}
+        <h3 class="mb-3" >Your Ticket</h3>
+        <div id="ticket">
+            <h1 style="text-align:center; font-size:largest; margin:40px auto;display:block;">E-Ticket</h1>
+            <button class="btn btn-primary" onclick="window.print()">Print</button>
+            <main>
+                <table style="width:75%;  border:2px solid black; margin: 20px auto;">
+                    <tr>
+                        <td style="width:35%;"><strong>Unique Ticket Id</strong></td>
+                        <td>{{ ticket_data['id'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:35%;"><strong>Passenger Name</strong></td>
+                        <td>{{ ticket_data['passenger'] }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date of Journey</strong></td>
+                        <td>{{ticket_data['journey_date']}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Train No.</strong></td>
+                        <td>{{ ticket_data['train_no'] }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Train Name</strong></td>
+                        <td>{{ ticket_data['train_name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Seat No.</strong></td>
+                        <td>{{ ticket_data['seat_no'] }}</td>
+                    </tr>
+                </table>
+                <table style="width:75%; border:2px solid black; border-collapse: collapse; margin:40px auto;">
+                    <tr>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Source Station</strong></td>
+                        <td style="width:35%; border: 1px solid black; border-collapse: collapse;">{{ stations['source_station_code'] }} | {{ stations['source_station_name'] }}</td>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Destination Station</strong></td>
+                        <td style="width:35%; border: 1px solid black; border-collapse: collapse;">{{ stations['destination_station_code'] }} | {{ stations['destination_station_name'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Boarding Station</strong></td>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['board'] }} | {{ stations['boarding'] }}</td>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Deboarding Station</strong></td>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['deboard'] }} | {{ stations['deboarding'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Departure Time</strong></td>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['departureTime'] }}</td>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Arrival Time</strong></td>
+                        <td style="width:15%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['arrivalTime'] }}</td>
+                    </tr>
+                </table>
+                <table style="width:75%; border:2px solid black; border-collapse: collapse; margin:40px auto;">
+                    <tr>
+                        <td style="width:25%; border: 1px solid black; border-collapse: collapse;"><strong>Booking Time</strong></td>
+                        <td style="width:75%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['booking_date'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%; border: 1px solid black; border-collapse: collapse;"><strong>Ticket Fare</strong></td>
+                        <td style="width:75%; border: 1px solid black; border-collapse: collapse;">&#x20b9;{{ ticket_data['fare'] }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%; border: 1px solid black; border-collapse: collapse;"><strong>Booked By (UserId)</strong></td>
+                        <td style="width:75%; border: 1px solid black; border-collapse: collapse;">{{ user }}</td>
+                    </tr>
+                </table>
+            </main>
+
+            <footer style="width:100%; text-align:center;font-size:small;position:fixed; bottom:0px;">
+                This is electronically generated ticket.
+            </footer>
+
+        </div>
+        
+{% endblock %}
+
+<!-- 
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <body>
+
+        <h1 style="text-align:center; font-size:largest; margin:40px auto;display:block;">E-Ticket</h1>
+
+        <main>
+            <table style="width:75%;  border:2px solid black; margin: 20px auto;">
+                <tr>
+                    <td style="width:35%;"><strong>Unique Ticket Id</strong></td>
+                    <td>{{ ticket_data['id'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width:35%;"><strong>Passenger Name</strong></td>
+                    <td>{{ ticket_data['passenger'] }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Date of Journey</strong></td>
+                    <td>{{ticket_data['journey_date']}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Train No.</strong></td>
+                    <td>{{ ticket_data['train_no'] }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Train Name</strong></td>
+                    <td>{{ ticket_data['train_name'] }}</td>
+                </tr>
+                <tr>
+                    <td><strong>Seat No.</strong></td>
+                    <td>{{ ticket_data['seat_no'] }}</td>
+                </tr>
+            </table>
+            <table style="width:75%; border:2px solid black; border-collapse: collapse; margin:40px auto;">
+                <tr>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Source Station</strong></td>
+                    <td style="width:35%; border: 1px solid black; border-collapse: collapse;">{{ stations['source_station_code'] }} | {{ stations['source_station_name'] }}</td>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Destination Station</strong></td>
+                    <td style="width:35%; border: 1px solid black; border-collapse: collapse;">{{ stations['destination_station_code'] }} | {{ stations['destination_station_name'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Boarding Station</strong></td>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['board'] }} | {{ stations['boarding'] }}</td>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Deboarding Station</strong></td>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['deboard'] }} | {{ stations['deboarding'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Departure Time</strong></td>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['departureTime'] }}</td>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;"><strong>Arrival Time</strong></td>
+                    <td style="width:15%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['arrivalTime'] }}</td>
+                </tr>
+            </table>
+            <table style="width:75%; border:2px solid black; border-collapse: collapse; margin:40px auto;">
+                <tr>
+                    <td style="width:25%; border: 1px solid black; border-collapse: collapse;"><strong>Booking Time</strong></td>
+                    <td style="width:75%; border: 1px solid black; border-collapse: collapse;">{{ ticket_data['booking_date'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width:25%; border: 1px solid black; border-collapse: collapse;"><strong>Ticket Fare</strong></td>
+                    <td style="width:75%; border: 1px solid black; border-collapse: collapse;">&#x20b9;{{ ticket_data['fare'] }}</td>
+                </tr>
+                <tr>
+                    <td style="width:25%; border: 1px solid black; border-collapse: collapse;"><strong>Booked By (UserId)</strong></td>
+                    <td style="width:75%; border: 1px solid black; border-collapse: collapse;">{{ user }}</td>
+                </tr>
+            </table>
+        </main>
+
+        <footer style="width:100%; text-align:center;font-size:small;position:fixed; bottom:0px;">
+            This is electronically generated ticket.
+        </footer>
+
+    </body>
+
+</html> -->

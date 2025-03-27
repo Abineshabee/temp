@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Transactions
+{% endblock %}
+
+{% block main %}
+    <h4 style="position:fixed; top:100px; right:50px;">Wallet Balance : &#x20b9;{{ balance }}</h4>
+    <h3 class= "mb-3">Transaction History</h3>
+        {% if transactions %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Transaction Time</th>
+                <th class="text-center" scope="col">Ticket ID</th>
+                <th class="text-center" scope="col">Train No.</th>
+                <th class="text-center" scope="col">Board Station</th>
+                <th class="text-center" scope="col">Deboard Station</th>
+                <th class="text-center" scope="col">Journey Date</th>
+                <th class="text-center" scope="col">Fare</th>
+                <th class="text-center" scope="col">Transaction Type</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction["transaction_date"] }}</td>
+                        <td>{{ transaction["id"] }}</td>
+                        <td>{{ transaction["train_no"] }}</td>
+                        <td>{{ transaction["board"] }}</td>
+                        <td>{{ transaction["deboard"] }}</td>
+                        <td>{{ transaction["journey_date"] }}</td>
+                        <td>&#x20b9; {{ transaction["fare"] }}</td>
+                        <td>{{ transaction["status"] }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        {% else %}
+        <h4>You do not have any transaction history yet.</h4>
+        {% endif %}
+{% endblock %}
+

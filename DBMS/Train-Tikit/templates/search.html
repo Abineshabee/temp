@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block main %}
+    <form action="/search" method= "post">
+        <h3 class="mb-3">Search Trains</h3>
+        <div class="mb-3">
+            <select autofocus class="form-control selectpicker mx-auto w-25" id="src" name="src" placeholder="Source" type="text" data-live-search="true">
+                <option selected disabled>SELECT SOURCE STATION</option>
+                {% for station in stations %}
+                <option value="{{ station['code'] }}" data-tokens="{{ station['code'] }}{{ station['name'] }}">{{ station['code'] }} : {{ station['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <select autofocus class="form-control selectpicker mx-auto w-25" id="dest" name="dest" placeholder="Destination" type="text" data-live-search="true">
+                <option selected disabled>SELECT DESTINATION STATION</option>
+                {% for station in stations %}
+                <option value="{{ station['code'] }}" data-tokens="{{ station['code'] }}{{ station['name'] }}">{{ station['code'] }} : {{ station['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Get Trains</button>
+    </form>
+{% endblock %}
+

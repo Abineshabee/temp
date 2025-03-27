@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Print Ticket
+{% endblock %}
+
+{% block main %}
+    <form action= "/print" method="post">
+        <h3 class="mb-3">Print Ticket</h3>
+        <div class="mb-3">
+            <select autocomplete="off" autofocus class="form-control mx-auto w-50" id="ticket" name="ticket" required>
+                <option disabled selected>Ticket Id : Journey Date : Train No : Boarding Station : Deboarding Station : Passenger Full Name</option>
+                {% for ticket in tickets %}
+                    <option value="{{ ticket['id'] }}">{{ ticket['id'] }} : {{ ticket['journey_date'] }} : {{ ticket['train_no'] }} : {{ ticket['board'] }} : {{ ticket['deboard'] }} : {{ ticket['passenger'] }}</options>
+                {% endfor %}
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Print</button>
+    </form>
+{% endblock %}
+

@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Book Ticket
+{% endblock %}
+
+{% block main %}
+    <form action="/book" method= "post">
+        <h3 class="mb-3">Book Ticket</h3>
+
+        <!-- if we have stations when get request made at /search the only stations will be loaded -->
+        {% if stations %}
+        <div class="mb-3">
+            <select autofocus class="form-control selectpicker mx-auto w-25" required id="src" name="src" placeholder="Source" type="text" data-live-search="true">
+                <option selected disabled>SELECT SOURCE STATION</option>
+                {% for station in stations %}
+                <option value="{{ station['code'] }}" data-tokens="{{ station['code'] }}{{ station['name'] }}">{{ station['code'] }} : {{ station['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <select autofocus required class="form-control selectpicker mx-auto w-25" id="dest" name="dest" placeholder="Destination" type="text" data-live-search="true">
+                <option selected disabled>SELECT DESTINATION STATION</option>
+                {% for station in stations %}
+                <option value="{{ station['code'] }}" data-tokens="{{ station['code'] }}{{ station['name'] }}">{{ station['code'] }} : {{ station['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- When trains fetched we have not stations list but only have src and dest -->
+        {% else %}
+        <div class="mb-3">
+            <select autofocus required class="form-control selectpicker mx-auto w-25" id="src" name="src" placeholder="Source" type="text" data-live-search="true">
+                <option selected value="{{src}}">{{src}}</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <select autofocus required class="form-control selectpicker mx-auto w-25" id="dest" name="dest" placeholder="Destination" type="text" data-live-search="true">
+                <option selected value="{{dest}}">{{dest}}</option>
+            </select>
+        </div>
+        {% endif %}
+
+        <!-- After making post request at /book trains fetched -->
+        {% if trains %}
+        <div class="mb-3">
+            <select autofocus required class="form-control selectpicker mx-auto w-25" id="train" name="train" placeholder="Destination" type="text" data-live-search="true">
+                <option selected disabled>SELECT TRAIN</option>
+                {% for train in trains %}
+                <option value="{{ train['no'] }}" data-tokens="{{ train['no'] }}{{ train['name'] }}">{{ train['no'] }} : {{ train['name'] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" required class="form-control mx-auto w-25" id="name" name="name" placeholder="Passenger Full Name" type="text">
+        </div>
+        <div class="mb-3">
+            <label class="form-label mx-auto w25">Journey Date</label><input required name="date" id="date" type="date" class="form-control mx-auto w-25" max="{{ allowedDate[0] }}" min="{{ allowedDate[1] }}" placeholder="Date of Journey">
+        </div>
+        <button class="btn btn-primary" type="submit">Book Ticket</button>
+
+        <!-- At get request we are not getting more data as list of trains is also more -->
+        {% else %}
+        <button class="btn btn-primary" type="submit">Fetch Trains</button>
+        {% endif %}
+    </form>
+{% endblock %}
+

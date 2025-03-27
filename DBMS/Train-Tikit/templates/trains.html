@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block main %} 
+    <h3 class="mb-3">Trains From {{ src }} to {{dest}} </h3>
+        {% if data %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col"><pre>Train No.</pre></th>
+                <th class="text-center" scope="col"><pre>Name</pre></th>
+                <th class="text-center" scope="col"><pre>From&nbsp;:&nbsp;Departure Time</pre></th>
+                <th class="text-center" scope="col"><pre>To&nbsp;:&nbsp;Arrival Time</pre></th>
+                <th class="text-center" scope="col"><pre>Distance</pre></th>
+                <th class="text-center" scope="col"><pre>Fare</pre></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        <td>{{ row["no"] }}</td>
+                        <td>{{ row["name"] }}</td>
+                        <td><pre>{{ row["source"] }}&nbsp;:&nbsp;{{ row['deptTime'] }}</pre></td>
+                        <td><pre>{{ row["destination"] }}&nbsp;:&nbsp;{{ row['arrTime'] }}</pre></td>
+                        <td>{{ row["distance"] }}</td>
+                        <td>&#x20b9;{{ (row["distance"] * 0.6)|round(2) }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        {% else %}
+        <h4>No trains between given stations</h4>
+        {% endif %}
+{% endblock %}
+
